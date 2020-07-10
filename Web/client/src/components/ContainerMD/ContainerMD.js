@@ -16,21 +16,21 @@ function ContainerMD(props) {
   }
 
   return (
-    <Container maxWidth={containerSize}>
+
+    <Container maxWidth={containerSize} style={{ marginTop: "1rem", padding: "0" }}>
       <Paper className="container-spacer">
-          {typeof props.containerTitle !== 'undefined'
-            ? <Chip className="chip" label={props.containerTitle} />
-            : null
-          }
+        {typeof props.containerTitle !== 'undefined'
+          ? <Chip className="chip" label={props.containerTitle} />
+          : null
+        }
+
         <div className={containerPadding}>
-
-
           {props.children}
-
         </div>
-      </Paper>
 
+      </Paper>
     </Container>
+
   );
 }
 
