@@ -2,7 +2,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
-from .serializers import UserSignupSerializer
+
+from .models import UserInformation
+from .serializers import UserSignupSerializer, UserDataSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 
@@ -34,3 +36,18 @@ class GetUserBasicData(APIView):
   def get(self, request):
     context = {'username': request.user.username, 'email': request.user.email}
     return Response(data=context)
+
+
+class GetUserData(APIView):
+  authentication_classes = [TokenAuthentication]
+  permission_classes = [IsAuthenticated]
+
+  def get(self, request):
+    user = request.user
+    user_data_instance = UserInformation.objects.get(student=user)
+
+    user_data_serializer = UserDataSerializer(user_data_instance)
+
+    return Response(user_data_serializer.data)
+
+

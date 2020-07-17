@@ -3,9 +3,9 @@ import { connect } from "react-redux"
 import TopBar from "../Common/TopBar/TopBar";
 import {Card, Col, Container, Image, ListGroup, Row} from "react-bootstrap";
 import LeftSide from "../Common/LeftSide/LeftSide";
-import CenterSide from "../Common/CenterSide/CenterSide";
 import RightSide from "../Common/RightSide/RightSide";
 import Banner from "../../assets/banner.jpg";
+import { useHistory } from 'react-router-dom'
 
 const mapStateToProps = (state) => {
     return {
@@ -14,6 +14,15 @@ const mapStateToProps = (state) => {
 }
 
 function Student(props) {
+
+    const history = useHistory();
+    const redirectToDetails = () => {
+        history.push('/student/details');
+    }
+    const redirectToChangePassword = () => {
+        history.push('/change-password');
+    }
+
     return (
         <React.StrictMode>
             <TopBar />
@@ -23,8 +32,8 @@ function Student(props) {
                     <Col lg={{ span:2, order:1}} md={{ span:12, order:2}} xs={{ span:12, order:2}} className="pl-1 pr-1 mt-3">
 
                             <ListGroup>
-                                <ListGroup.Item action variant="secondary" href="/change-password">Schimba Parola</ListGroup.Item>
-                                <ListGroup.Item action variant="info" href="/student/details">Detalii si Note</ListGroup.Item>
+                                <ListGroup.Item action variant="secondary" onClick={redirectToChangePassword}>Schimba Parola</ListGroup.Item>
+                                <ListGroup.Item action variant="info" onClick={redirectToDetails}>Detalii si Note</ListGroup.Item>
                             </ListGroup>
 
                             <div className="mt-3">

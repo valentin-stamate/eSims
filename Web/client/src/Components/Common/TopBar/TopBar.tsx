@@ -7,12 +7,9 @@ import { useHistory } from 'react-router-dom'
 
 const mapStateToProps = state => {
     return {
-        username: state.username,
-        email: state.email,
+        userData: state.userBasicData,
     }
 }
-
-
 
 function TopBar(props) {
 
@@ -47,8 +44,8 @@ function TopBar(props) {
 
                         <Form inline>
                             <DropdownButton variant="success" title="Student" className="mr-sm-2">
-                                <NavDropdown.Item>{props.username}</NavDropdown.Item>
-                                <NavDropdown.Item>{props.email}</NavDropdown.Item>
+                                <NavDropdown.Item>{props.userData.username}</NavDropdown.Item>
+                                <NavDropdown.Item>{props.userData.email}</NavDropdown.Item>
 
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item>Copy Registration</NavDropdown.Item>

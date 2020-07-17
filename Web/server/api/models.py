@@ -42,7 +42,7 @@ class UserInformation(models.Model):
   full_name = models.CharField(verbose_name='name', max_length=30, blank=True)
   phone = models.CharField(max_length=13, blank=True)
   email = models.CharField(max_length=30)
-  birth = models.DateField(blank=True, null=True)  # be careful
+  birth = models.DateField(blank=True, null=True)
   mother_firstname = models.CharField(max_length=20, blank=True)
   father_firstname = models.CharField(max_length=20, blank=True)
   nationality = models.CharField(max_length=20, blank=True)

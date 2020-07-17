@@ -9,14 +9,14 @@ const mapStateToProps = (state) => {
     }
 }
 
-let userDetails;
-let userDetailsJSX: JSX.Element[] = [];
-let studentTrajectory;
-let studentTrajectoryJSX: JSX.Element[] = [];
-let studentsGrades;
-let studentsGradesJSX: JSX.Element[] = [];
-
 function StudentDetails(props) {
+
+    let userDetails;
+    let userDetailsJSX: JSX.Element[] = [];
+    let studentTrajectory;
+    let studentTrajectoryJSX: JSX.Element[] = [];
+    let studentsGrades;
+    let studentsGradesJSX: JSX.Element[] = [];
 
     const dummyData = "Dummy Data"
     const tdAlign = "center";
@@ -194,13 +194,13 @@ function StudentDetails(props) {
                             <th>{}</th>
                         </tr>
                         <tr>
-                            <th>1</th>
+                            <th>2</th>
                             <th>{}</th>
                             <th>{}</th>
                             <th>{}</th>
                         </tr>
-                        <tr>
-                            <th>1 + 2</th>
+                        <tr unselectable={'on'}>
+                            <th>Total</th>
                             <th>{}</th>
                             <th>{}</th>
                             <th>{}</th>
