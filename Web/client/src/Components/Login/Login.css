@@ -1,0 +1,7 @@
+.credits {
+    position: absolute;
+    left: 50%;
+    margin-top: 13px;
+    padding: 8px;
+    transform: translate(-50%);
+}

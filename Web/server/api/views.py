@@ -22,8 +22,15 @@ class SignupUser(APIView):
 
 
 class LoginUser(APIView):
-  authentication_classes = [TokenAuthentication]
 
   def post(self, request):
-    print(request.auth)
     return Response("ana are mere")
+
+
+class GetUserBasicData(APIView):
+  authentication_classes = [TokenAuthentication]
+  permission_classes = [IsAuthenticated]
+
+  def get(self, request):
+    context = {'username': request.user.username, 'email': request.user.email}
+    return Response(data=context)

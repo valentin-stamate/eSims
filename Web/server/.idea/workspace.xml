@@ -19,7 +19,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e5eceaa-4188-4455-a195-406d27433993" name="Default Changelist" comment="" />
+    <list default="true" id="9e5eceaa-4188-4455-a195-406d27433993" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/Components/Signup/Signup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/Components/Signup/Signup.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,7 +101,11 @@
       <workItem from="1594637327804" duration="11597000" />
       <workItem from="1594705439304" duration="8825000" />
       <workItem from="1594725228749" duration="368000" />
-      <workItem from="1594746478389" duration="650000" />
+      <workItem from="1594746478389" duration="1246000" />
+      <workItem from="1594803634816" duration="2551000" />
+      <workItem from="1594826570439" duration="652000" />
+      <workItem from="1594835866831" duration="644000" />
+      <workItem from="1594883003762" duration="2853000" />
     </task>
     <servers />
   </component>
@@ -126,5 +140,9 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="296" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1050@0.0.1920.1050" timestamp="1594722683473" />
+    <state x="1075" y="233" width="672" height="678" key="search.everywhere.popup" timestamp="1594810870420">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="1075" y="233" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1594810870420" />
   </component>
 </project>

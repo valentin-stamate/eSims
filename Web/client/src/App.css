@@ -1,1 +1,14 @@
+img {
+    pointer-events: none;
+}
 
+.Full-Logo {
+    display: block;
+    margin: 8rem auto 3rem;
+}
+
+.center-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
