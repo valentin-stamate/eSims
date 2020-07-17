@@ -1,5 +1,5 @@
 import React from 'react'
-import {ListGroup, Row} from "react-bootstrap";
+import {ListGroup} from "react-bootstrap";
 
 const linkList = [
     {
@@ -76,10 +76,10 @@ export default function LeftSide(props) {
 
     return (
         <React.StrictMode>
+
             <ListGroup defaultActiveKey="#link1">
                 {items}
             </ListGroup>
-
 
         </React.StrictMode>
     );

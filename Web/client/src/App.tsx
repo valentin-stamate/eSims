@@ -7,7 +7,8 @@ import Root from "./components/Root/Root";
 import Login from "./components/Login/Login";
 import { Provider } from 'react-redux';
 import store from './Redux/store'
-import Students from "./components/Students/Students";
+import Student from "./components/Student/Student";
+import StudentDetails from "./components/Common/StudentDetails/StudentDetails";
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
             <Route path="/signup" exact component={SignUp}/>
             <Route path="/login" exact component={Login}/>
             <Route path="/home" exact component={Home}/>
-            <Route path="/students" exact component={Students} />
+            <Route path="/student" exact component={Student} />
+            <Route path="/student/details" exact component={StudentDetails} />
         </BrowserRouter>
     </Provider>
   );

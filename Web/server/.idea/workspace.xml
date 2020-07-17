@@ -20,15 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e5eceaa-4188-4455-a195-406d27433993" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/webResources.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/Components/Signup/Signup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/Components/Signup/Signup.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/Components/Common/StudentInfo/StudentInfo.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/Components/Students/Students.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/Components/Students/Students.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,6 +103,7 @@
       <workItem from="1594826570439" duration="652000" />
       <workItem from="1594835866831" duration="644000" />
       <workItem from="1594883003762" duration="2853000" />
+      <workItem from="1594969863926" duration="759000" />
     </task>
     <servers />
   </component>

@@ -1,8 +1,8 @@
 import React from 'react'
 import Evolve from '../../../assets/evolve.jpg'
 import UAIC360 from '../../../assets/360uaic.png'
-import Banner from './../../../assets/banner.jpg'
-import {Card, Col, Container, Image, Row} from "react-bootstrap";
+import {Card, Col, Row} from "react-bootstrap";
+import Banner from "../Banner/Banner";
 
 const centerSide = [
     {
@@ -79,7 +79,7 @@ export default function CenterSide() {
 
             <Col>
                 <Row>
-                    <Image src={Banner} rounded style={{width: "100%"}}/>
+                    <Banner />
 
                     <Card className="p-4 mt-3">
                         { content }

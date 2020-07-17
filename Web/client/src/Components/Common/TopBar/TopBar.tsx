@@ -1,17 +1,36 @@
 import React from 'react';
-import {
-    Button,
-    Container,
-    Dropdown,
-    DropdownButton,
-    Form,
-    FormControl,
-    Nav,
-    Navbar,
-    NavDropdown
-} from "react-bootstrap";
+import {Button, Container, Dropdown, DropdownButton, Form, FormControl, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import GetUserBasicData from "../../../Globals/UserStatus";
+import {GET_USER_BASIC_DATA} from "../../../Redux/actions";
+import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+
+const mapStateToProps = state => {
+    return {
+        username: state.username,
+        email: state.email,
+    }
+}
+
+
 
 function TopBar(props) {
+
+    const history = useHistory();
+    const redirectToHome = () => {
+        history.push('/home');
+    }
+    const redirectToStudents = () => {
+        history.push('/student');
+    }
+
+    GetUserBasicData().then( data => {
+        props.dispatch({
+            type: GET_USER_BASIC_DATA,
+            username: data.username,
+            email: data.email
+        })
+    });
 
     return (
         <React.StrictMode>
@@ -22,9 +41,8 @@ function TopBar(props) {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link href="/home" active={window.location.href.search("home") !== -1}>Acasa</Nav.Link>
-                            <Nav.Link href="/students" active={window.location.href.search("students") !== -1}>Studenti</Nav.Link>
-                            <Nav.Link href="/recover" active={window.location.href.search("recover") !== -1}>Recuperare Parola</Nav.Link>
+                            <Nav.Link onClick={redirectToHome} active={window.location.href.search("home") !== -1}>Acasa</Nav.Link>
+                            <Nav.Link onClick={redirectToStudents} active={window.location.href.search("student") !== -1}>Studenti</Nav.Link>
                         </Nav>
 
                         <Form inline>
@@ -48,4 +66,4 @@ function TopBar(props) {
     );
 }
 
-export default TopBar
+export default connect(mapStateToProps)(TopBar);
