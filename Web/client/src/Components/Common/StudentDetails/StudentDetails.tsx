@@ -2,11 +2,42 @@ import React from "react";
 import TopBar from "../TopBar/TopBar";
 import {Button, Card, Col, Container, Row, Table} from "react-bootstrap";
 import { connect } from 'react-redux';
+import axios from 'axios'
+import {getCookie} from "../../../Globals/Cookie";
+import {GET_USER_DATA} from "../../../Redux/actions";
 
 const mapStateToProps = (state) => {
     return {
-        
+        registration: state.userData.registration,
+        full_name: state.userData.full_name,
+        phone: state.userData.phone,
+        email: state.userData.email,
+        birth: state.userData.birth,
+        mother_firstname: state.userData.mother_firstname,
+        father_firstname: state.userData.father_firstname,
+        nationality: state.userData.nationality,
+        citizenship: state.userData.citizenship
     }
+}
+
+const fetchUserData= (props) => {
+
+    const token = getCookie('user_id');
+
+    axios({
+        method: 'get',
+        url: 'http://localhost:8000/api/get/user-data',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Token " + token,
+        }
+    }).then( result => {
+
+        props.dispatch({
+           type: GET_USER_DATA,
+           data: result.data,
+        });
+    } );
 }
 
 function StudentDetails(props) {
@@ -20,6 +51,8 @@ function StudentDetails(props) {
 
     const dummyData = "Dummy Data"
     const tdAlign = "center";
+
+    fetchUserData(props)
 
     userDetails = [
         {
@@ -61,7 +94,7 @@ function StudentDetails(props) {
     ]
 
     for (let i = 0; i < userDetails.length; i++) {
-        userDetailsJSX.push(<tr key={i + 1}><td>{userDetails[i].rowName}</td><td>{userDetails[i].rowValue}</td></tr>)
+        userDetailsJSX.push(<tr key={i + 1}><td>{userDetails[i].rowName}</td><td className="text-center">{userDetails[i].rowValue}</td></tr>)
     }
 
     // Dummy Testing
@@ -83,7 +116,7 @@ function StudentDetails(props) {
                 <td>{studentTrajectory[i].semester}</td>
                 <td>{studentTrajectory[i].group}</td>
                 <td>{studentTrajectory[i].specialization}</td>
-                <td><Button>Detalii</Button></td>
+                <td><Button variant="info">Detalii</Button></td>
             </tr>
         );
     }
@@ -102,7 +135,7 @@ function StudentDetails(props) {
 
     for (let i = 0; i < studentsGrades.length; i++) {
         studentsGradesJSX.push(
-            <tr>
+            <tr key={i}>
                 <th>{studentsGrades[i].year}</th>
                 <th>{studentsGrades[i].semester}</th>
                 <th>{studentsGrades[i].className}</th>
@@ -121,13 +154,13 @@ function StudentDetails(props) {
 
 
                 <Card className="mt-3">
-                    <Card.Header>Detalii Despre Student</Card.Header>
+                    <Card.Header className="bg-warning text-light" as="h5">Detalii Despre Student</Card.Header>
                     <Table size="sm" striped bordered className="m-0">
                         <tbody>
                         {/* One free for row spacing */}
                         <tr>
                             <td width={160}>ID</td>
-                            <td align={tdAlign}>{dummyData}</td>
+                            <td align={tdAlign}>112112</td>
                         </tr>
                         {userDetailsJSX}
                         </tbody>
@@ -136,7 +169,7 @@ function StudentDetails(props) {
 
 
                 <Card className="mt-3">
-                    <Card.Header>Traiectoria Studentului</Card.Header>
+                    <Card.Header as="h5" className="bg-success text-light">Traiectoria Studentului</Card.Header>
                     <Table size="sm" striped bordered className="m-0">
                         <thead>
                         <tr className="text-center">
@@ -156,7 +189,7 @@ function StudentDetails(props) {
 
 
                 <Card className="mt-3">
-                    <Card.Header>Note '{'{Semestrul Curent}'}'</Card.Header>
+                    <Card.Header as="h5" className="bg-danger text-light">Note '{'{Semestrul Curent}'}'</Card.Header>
                     <Table size="sm" striped bordered className="m-0">
                         <thead>
                         <tr className="text-center">
@@ -176,7 +209,7 @@ function StudentDetails(props) {
 
 
                 <Card className="mt-3">
-                    <Card.Header>Traiectoria Mediilor</Card.Header>
+                    <Card.Header as="h5" className="bg-secondary text-light">Traiectoria Mediilor</Card.Header>
                     <Table size="sm" striped bordered className="m-0">
                         <thead>
                         <tr className="text-center">

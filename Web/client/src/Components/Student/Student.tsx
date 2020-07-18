@@ -7,12 +7,6 @@ import RightSide from "../Common/RightSide/RightSide";
 import Banner from "../../assets/banner.jpg";
 import { useHistory } from 'react-router-dom'
 
-const mapStateToProps = (state) => {
-    return {
-
-    }
-}
-
 function Student(props) {
 
     const history = useHistory();
@@ -61,4 +55,4 @@ function Student(props) {
     );
 }
 
-export default connect(mapStateToProps)(Student)
+export default Student

@@ -1,17 +1,43 @@
 import React from 'react';
-import {Button, Container, Dropdown, DropdownButton, Form, FormControl, Nav, Navbar, NavDropdown} from "react-bootstrap";
-import GetUserBasicData from "../../../Globals/UserStatus";
+import {Button, Container, DropdownButton, Form, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {GET_USER_BASIC_DATA} from "../../../Redux/actions";
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import axios from 'axios'
+import {getCookie} from "../../../Globals/Cookie";
 
 const mapStateToProps = state => {
     return {
-        userData: state.userBasicData,
+        username: state.userBasicData.username,
+        email: state.userBasicData.email,
     }
 }
 
+function fetchBasicData(props) {
+
+    const token = getCookie('user_id');
+
+    axios({
+        method: 'GET',
+        url: 'http://localhost:8000/api/get/user-basic-data/',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Token " + token,
+        }
+    }).then( result => {
+
+        props.dispatch({
+            type: GET_USER_BASIC_DATA,
+            data: result.data,
+        })
+    } )
+}
+
 function TopBar(props) {
+
+    console.log("Render")
+
+    fetchBasicData(props)
 
     const history = useHistory();
     const redirectToHome = () => {
@@ -21,17 +47,8 @@ function TopBar(props) {
         history.push('/student');
     }
 
-    GetUserBasicData().then( data => {
-        props.dispatch({
-            type: GET_USER_BASIC_DATA,
-            username: data.username,
-            email: data.email
-        })
-    });
-
     return (
         <React.StrictMode>
-
             <Navbar bg="light" expand="md">
                 <Container>
                     <Navbar.Brand>eSIMS</Navbar.Brand>
@@ -44,8 +61,8 @@ function TopBar(props) {
 
                         <Form inline>
                             <DropdownButton variant="success" title="Student" className="mr-sm-2">
-                                <NavDropdown.Item>{props.userData.username}</NavDropdown.Item>
-                                <NavDropdown.Item>{props.userData.email}</NavDropdown.Item>
+                                <NavDropdown.Item>{props.username}</NavDropdown.Item>
+                                <NavDropdown.Item>{props.email}</NavDropdown.Item>
 
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item>Copy Registration</NavDropdown.Item>
@@ -56,8 +73,6 @@ function TopBar(props) {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-
-
 
         </React.StrictMode>
     );

@@ -1,17 +1,9 @@
 import React from "react";
-import { connect } from 'react-redux'
 import TopBar from "../Common/TopBar/TopBar";
 import LeftSide from "../Common/LeftSide/LeftSide";
 import RightSide from "../Common/RightSide/RightSide";
 import CenterSide from "../Common/CenterSide/CenterSide";
 import {Col, Container, Row} from "react-bootstrap";
-
-const mapStateToProps = state => {
-    return {
-        username: state.username,
-        email: state.email,
-    }
-}
 
 function Home(props) {
 
@@ -35,4 +27,4 @@ function Home(props) {
     );
 }
 
-export default connect(mapStateToProps)(Home);
+export default Home;
