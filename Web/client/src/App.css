@@ -16,3 +16,7 @@ img {
 .td-center {
     text-align: center;
 }
+
+.no-decoration {
+    text-decoration: none;
+}

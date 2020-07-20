@@ -4,23 +4,18 @@ import {Button, Card, Col, Container, Row, Table} from "react-bootstrap";
 import { connect } from 'react-redux';
 import axios from 'axios'
 import {getCookie} from "../../../Globals/Cookie";
-import {GET_USER_DATA} from "../../../Redux/actions";
+import {GET_SEMESTER_CLASSES, GET_SEMESTERS, GET_USER_DATA} from "../../../Redux/actions";
 
 const mapStateToProps = (state) => {
     return {
-        registration: state.userData.registration,
-        full_name: state.userData.full_name,
-        phone: state.userData.phone,
-        email: state.userData.email,
-        birth: state.userData.birth,
-        mother_firstname: state.userData.mother_firstname,
-        father_firstname: state.userData.father_firstname,
-        nationality: state.userData.nationality,
-        citizenship: state.userData.citizenship
+        studentData: state.userData,
+        semesters: state.userSemesters,
+        semesterClasses: state.semesterClasses,
     }
 }
 
-const fetchUserData= (props) => {
+let fetchedStudentData = false;
+const fetchUserData = (props) => {
 
     const token = getCookie('user_id');
 
@@ -32,116 +27,89 @@ const fetchUserData= (props) => {
             'Authorization': "Token " + token,
         }
     }).then( result => {
-
         props.dispatch({
            type: GET_USER_DATA,
            data: result.data,
         });
     } );
+
+    axios({
+        method: "GET",
+        url: "http://localhost:8000/api/get/semesters",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Token " + token,
+        }
+    }).then( result => {
+        props.dispatch({
+            type: GET_SEMESTERS,
+            data: result.data,
+        });
+    } );
 }
 
-function StudentDetails(props) {
+// TODO find a wae to get the props nicely
+let propsRef;
+const showSemesterGrades = (event) => {
 
-    let userDetails;
-    let userDetailsJSX: JSX.Element[] = [];
-    let studentTrajectory;
+    const key = event.target.getAttribute('button-key');
+
+    const token = getCookie('user_id');
+
+    axios({
+        method: "POST",
+        url: "http://localhost:8000/api/get/semester-class-grades",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Token " + token,
+        },
+        data: {
+            'semester-key': key
+        },
+    }).then( result => {
+        propsRef.dispatch({
+            type: GET_SEMESTER_CLASSES,
+            data: result.data,
+        })
+    } )
+
+}
+
+
+function StudentDetails(props) {
+    propsRef = props;
     let studentTrajectoryJSX: JSX.Element[] = [];
-    let studentsGrades;
     let studentsGradesJSX: JSX.Element[] = [];
 
-    const dummyData = "Dummy Data"
-    const tdAlign = "center";
-
-    fetchUserData(props)
-
-    userDetails = [
-        {
-            rowName: "Nume",
-            rowValue: props.name,
-        },
-        {
-            rowName: "Matricol",
-            rowValue: props.registration,
-        },
-        {
-            rowName: "Telefon",
-            rowValue: props.phone,
-        },
-        {
-            rowName: "EMail",
-            rowValue: props.email,
-        },
-        {
-            rowName: "Data Nasterii",
-            rowValue: props.born,
-        },
-        {
-            rowName: "Mama",
-            rowValue: props.mother,
-        },
-        {
-            rowName: "Tata",
-            rowValue: props.father,
-        },
-        {
-            rowName: "Nationalitatea",
-            rowValue: props.nationality,
-        },
-        {
-            rowName: "Cetatenia",
-            rowValue: props.citizenship,
-        },
-    ]
-
-    for (let i = 0; i < userDetails.length; i++) {
-        userDetailsJSX.push(<tr key={i + 1}><td>{userDetails[i].rowName}</td><td className="text-center">{userDetails[i].rowValue}</td></tr>)
+    if (!fetchedStudentData) {
+        fetchedStudentData = true;
+        fetchUserData(props)
     }
 
-    // Dummy Testing
-    studentTrajectory = [
-        {
-            year: "2019",
-            yearOfStudy: "1",
-            semester: 1,
-            group: "Semian B/B4",
-            specialization: "Informatica"
-        }
-    ];
-
-    for (let i = 0; i < studentTrajectory.length; i++) {
+    // Semester List
+    for (let i = 0; i < props.semesters.length; i++) {
         studentTrajectoryJSX.push(
             <tr key={i}>
-                <td>{studentTrajectory[i].year}</td>
-                <td>{studentTrajectory[i].yearOfStudy}</td>
-                <td>{studentTrajectory[i].semester}</td>
-                <td>{studentTrajectory[i].group}</td>
-                <td>{studentTrajectory[i].specialization}</td>
-                <td><Button variant="info">Detalii</Button></td>
+                <td>{props.semesters[i].year}</td>
+                <td>{props.semesters[i].year_of_study}</td>
+                <td>{props.semesters[i].semester}</td>
+                <td>{props.semesters[i].group}</td>
+                <td>{props.semesters[i].domain}</td>
+                <td><Button button-key={props.semesters[i].id} onClick={showSemesterGrades} variant="info">Detalii</Button></td>
             </tr>
         );
     }
 
-    // Dummy Testing
-    studentsGrades = [
-        {
-            year: 2019,
-            semester: 1,
-            className: "Arhitectura Calculatoarelor Si Sisteme De Operare",
-            finalGrade: 10,
-            credits: 5,
-            date: "19.01.2020",
-        }
-    ]
+    // Semester Classes
+    for (let i = 0; i < props.semesterClasses.length; i++) {
 
-    for (let i = 0; i < studentsGrades.length; i++) {
         studentsGradesJSX.push(
             <tr key={i}>
-                <th>{studentsGrades[i].year}</th>
-                <th>{studentsGrades[i].semester}</th>
-                <th>{studentsGrades[i].className}</th>
-                <th>{studentsGrades[i].finalGrade}</th>
-                <th>{studentsGrades[i].credits}</th>
-                <th>{studentsGrades[i].date}</th>
+                <th>{props.semesterClasses[i].semester_number}</th>
+                <th>{props.semesterClasses[i].class_name}</th>
+                <th>{props.semesterClasses[i].class_grade}</th>
+                <th>{props.semesterClasses[i].class_credits}</th>
+                <th>{props.semesterClasses[i].date}</th>
             </tr>
         );
     }
@@ -149,7 +117,6 @@ function StudentDetails(props) {
     return (
         <React.StrictMode>
             <TopBar />
-
             <Container>
 
 
@@ -158,11 +125,19 @@ function StudentDetails(props) {
                     <Table size="sm" striped bordered className="m-0">
                         <tbody>
                         {/* One free for row spacing */}
-                        <tr>
-                            <td width={160}>ID</td>
-                            <td align={tdAlign}>112112</td>
-                        </tr>
-                        {userDetailsJSX}
+                        {/*<tr>*/}
+                        {/*    <td width={160}>ID</td>*/}
+                        {/*    <td align={tdAlign}>112112</td>*/}
+                        {/*</tr>*/}
+                        <tr><td>Nume</td><td className="text-center">{props.studentData.full_name}</td></tr>
+                        <tr><td>Matricol</td><td className="text-center">{props.studentData.registration}</td></tr>
+                        <tr><td>Telefon</td><td className="text-center">{props.studentData.phone}</td></tr>
+                        <tr><td>EMail</td><td className="text-center">{props.studentData.email}</td></tr>
+                        <tr><td>Data Nasterii</td><td className="text-center">{props.studentData.birth}</td></tr>
+                        <tr><td>Mama</td><td className="text-center">{props.studentData.mother_firstname}</td></tr>
+                        <tr><td>Tata</td><td className="text-center">{props.studentData.father_firstname}</td></tr>
+                        <tr><td>Nationalitatea</td><td className="text-center">{props.studentData.nationalit}</td></tr>
+                        <tr><td>Cetatenia</td><td className="text-center">{props.studentData.citizenship}</td></tr>
                         </tbody>
                     </Table>
                 </Card>
@@ -193,7 +168,6 @@ function StudentDetails(props) {
                     <Table size="sm" striped bordered className="m-0">
                         <thead>
                         <tr className="text-center">
-                            <th>AnUniv</th>
                             <th>Semestru</th>
                             <th>Disciplina</th>
                             <th>Nota Finala</th>

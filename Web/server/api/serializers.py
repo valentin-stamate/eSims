@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, UserInformation
+from .models import User, UserInformation, Semester, ClassRow
 
 
 class UserSignupSerializer(serializers.ModelSerializer):
@@ -38,12 +38,18 @@ class UserDataSerializer(serializers.ModelSerializer):
               'birth', 'mother_firstname', 'father_firstname',
               'nationality', 'citizenship']
 
-    # registration = models.CharField(max_length=30, primary_key=True)
-    # full_name = models.CharField(verbose_name='name', max_length=30, blank=True)
-    # phone = models.CharField(max_length=13, blank=True)
-    # email = models.CharField(max_length=30)
-    # birth = models.DateField(blank=True, null=True)
-    # mother_firstname = models.CharField(max_length=20, blank=True)
-    # father_firstname = models.CharField(max_length=20, blank=True)
-    # nationality = models.CharField(max_length=20, blank=True)
-    # citizenship = models.CharField(max_length=20, blank=True)
+
+class SemesterSerializer(serializers.ModelSerializer):
+
+  class Meta:
+    model = Semester
+    fields = ['id', 'year', 'year_of_study', 'semester', 'group', 'domain']
+
+
+class SemesterClassRowSerializer(serializers.ModelSerializer):
+
+  class Meta:
+    model = ClassRow
+    fields = ['semester_number', 'class_name', 'class_grade', 'class_credits', 'date']
+
+

@@ -3,11 +3,10 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 
-from .models import UserInformation
-from .serializers import UserSignupSerializer, UserDataSerializer
+from .models import UserInformation, Semester, ClassRow
+from .serializers import UserSignupSerializer, UserDataSerializer, SemesterClassRowSerializer, SemesterSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
-
 
 class SignupUser(APIView):
 
@@ -51,3 +50,35 @@ class GetUserData(APIView):
     return Response(user_data_serializer.data)
 
 
+class GetSemesters(APIView):
+  authentication_classes = [TokenAuthentication]
+  permission_classes = [IsAuthenticated]
+
+  def get(self, request):
+    student = request.user
+
+    semester_data = []
+    for semester in Semester.objects.filter(student=student):
+
+      semester_data.append(SemesterSerializer(semester).data)
+
+    return Response(data=semester_data)
+
+
+class SemesterClassGrades(APIView):
+  authentication_classes = [TokenAuthentication]
+  permission_classes = [IsAuthenticated]
+
+  def post(self, request):
+
+    # TODO
+    # find a more secure way to get semesters cuz everyone logged in can get them
+
+    semester_key = request.data['semester-key']
+    semester = Semester.objects.get(id=semester_key)
+
+    class_rows = []
+    for row in ClassRow.objects.filter(semester=semester):
+      class_rows.append(SemesterClassRowSerializer(row).data)
+
+    return Response(data=class_rows)

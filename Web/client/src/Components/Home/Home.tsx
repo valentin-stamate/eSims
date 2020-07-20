@@ -9,7 +9,7 @@ function Home(props) {
 
     return (
         <React.StrictMode>
-            <TopBar/>
+            <TopBar />
             <Container>
                 <Row>
                     <Col lg={{ span:2, order:1}} md={{ span:12, order:2}} xs={{ span:12, order:2}} className="pl-1 pr-1 mt-3">

@@ -23,11 +23,15 @@
       <change beforePath="$PROJECT_DIR$/../client/src/Components/Common/StudentDetails/StudentDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/Components/Common/StudentDetails/StudentDetails.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/src/Components/Common/TopBar/TopBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/Components/Common/TopBar/TopBar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/src/Components/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/Components/Home/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/Components/Student/Student.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/Components/Student/Student.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/Globals/UserStatus.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/Globals/Cookie.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/Globals/Cookie.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/Redux/actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/Redux/actions.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/src/Redux/reducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/Redux/reducers.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +113,9 @@
       <workItem from="1594997738752" duration="3370000" />
       <workItem from="1595057262855" duration="1160000" />
       <workItem from="1595070944277" duration="4848000" />
+      <workItem from="1595139359506" duration="5853000" />
+      <workItem from="1595174063040" duration="3523000" />
+      <workItem from="1595227245936" duration="10804000" />
     </task>
     <servers />
   </component>
@@ -135,10 +142,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="72" y="186" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1594635388481" />
-    <state x="193" y="275" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1594624973540">
+    <state x="193" y="275" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1595242267469">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="193" y="275" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1594624973540" />
+    <state x="193" y="275" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1595242267469" />
     <state x="296" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594722683473">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

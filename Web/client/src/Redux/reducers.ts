@@ -1,4 +1,4 @@
-import {GET_USER_BASIC_DATA, GET_USER_DATA} from './actions'
+import {GET_SEMESTER_CLASSES, GET_SEMESTERS, GET_USER_BASIC_DATA, GET_USER_DATA} from './actions'
 
 const initialState = {
     userBasicData: {
@@ -15,7 +15,26 @@ const initialState = {
         father_firstname: "",
         nationality: "",
         citizenship: ""
-    }
+    },
+    userSemesters: [
+        {
+            id: 0,
+            year: 2000,
+            year_of_study: 2000,
+            semester: 1,
+            group: "B4 e cea mai tare",
+            domain: "Informatica",
+        },
+    ],
+    semesterClasses: [
+        {
+            semester_number: 1,
+            class_name: "",
+            class_grade: "",
+            class_credits: 0,
+            date: null,
+        }
+    ]
 };
 
 function reducers(state = initialState, action) {
@@ -29,6 +48,16 @@ function reducers(state = initialState, action) {
             return {
                 ...state,
                 userData: action.data,
+            }
+        case GET_SEMESTERS:
+            return {
+                ...state,
+                userSemesters: action.data,
+            }
+        case GET_SEMESTER_CLASSES:
+            return {
+                ...state,
+                semesterClasses: action.data,
             }
         default:
             return state
