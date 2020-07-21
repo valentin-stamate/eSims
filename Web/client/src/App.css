@@ -7,16 +7,34 @@ img {
     margin: 8rem auto 3rem;
 }
 
-.center-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.signup-login-card {
+    position: relative;
+    max-width: 32rem;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
-.td-center {
-    text-align: center;
+.background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    background-color: #F5F5F5;
+    z-index: -10;
 }
 
-.no-decoration {
-    text-decoration: none;
+/* FOR FOOTER */
+#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+#page-content {
+    padding-bottom: 4rem;    /* Footer height */
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
 }

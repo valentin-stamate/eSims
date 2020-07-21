@@ -1,95 +1,69 @@
 import React, { Component } from 'react';
-import Paper from '@material-ui/core/Paper';
-
-import './Login.css';
-import { Typography, Button, TextField} from '@material-ui/core';
-import ContainerMD from '../Common/ContainerMD/ContainerMD'
 
 import Img from '../../assets/full-logo.svg'
 import {setCookie} from "../../Globals/Cookie";
+import {Button, Card, Container, Form} from "react-bootstrap";
+import LittleTitleBox from "../Common/LittleTitleBox/LittleTitleBox";
+import { useHistory } from "react-router-dom"
+import {serialize} from "v8";
 
-function LoginAction() {
-    let registrationDOM = document.getElementById('registration') as HTMLInputElement;
-    let passwordDOM = document.getElementById('password') as HTMLInputElement;
+const LoginStudent = (event) => {
+    event.preventDefault();
 
-    let registration = registrationDOM !== null ? registrationDOM.value : "";
-    let password = passwordDOM !== null ? passwordDOM.value : "";
+    const loginForm = event.target;
 
-    let token = LoginUser(registration, password);
+    console.log(Object.fromEntries(new FormData(loginForm)))
+
+
 
 }
 
-function LoginUser(reg, pass): String | null {
+function Login(props) {
 
-    let url = 'http://localhost/login';
-
-    let dataToSent = {
-        username: reg,
-        password: pass
-    }
-
-    fetch(url, {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dataToSent),
-    }).then( res => {
-        if (res.status !== 304) {
-            alert("User not found");
-            throw "Error";
+        let useHis = useHistory();
+        function goToSignup() {
+            useHis.push("/signup");
         }
-        return res.json()
-    } ).then(data => {
-        setCookie('user_id', data.token);
-        window.location.href = './home';
-    }).catch(e => {
-            alert(e)
-        }
-    )
 
-    return "";
-}
-
-class Login extends Component {
-
-    render() {
         return (
-            <div>
+            <React.StrictMode>
 
-                <img src={Img} width={320} className="Full-Logo"/>
+                <div className="background"/>
 
-                <ContainerMD containerTitle="LOGIN" containerSize="sm" padding="3">
+                <img alt="Logo" src={Img} width={320} className="Full-Logo"/>
 
-                    <form noValidate autoComplete="off">
-                        <div className="marg-top">
-                            <TextField fullWidth label="Numar Matricol" variant="filled" id="registration" />
-                        </div>
+                <Container>
+                    <Card className="signup-login-card">
+                        <LittleTitleBox title="Login" />
+                        <Card.Body>
 
-                        <div className="marg-top">
-                            <TextField fullWidth label="Parola" variant="filled" type="password" className="marg-top" id="password" />
-                        </div>
+                            <Form id="login-form" onSubmit={LoginStudent}>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Numarul Matricol</Form.Label>
+                                    <Form.Control name="registration" type="text" placeholder="310910401RSL..." />
+                                </Form.Group>
 
-                        <Button variant="contained" color="primary" className="align-right" onClick={LoginAction}>
-                            Login
-                        </Button>
-                    </form>
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label>Parola</Form.Label>
+                                    <Form.Control name="password" type="password" placeholder="Parola123" />
+                                </Form.Group>
 
-                    <Button variant="outlined" href="./signup">
-                        Creare Cont Nou
-                    </Button>
+                                {/* This checkbox does nothing */}
+                                <Form.Group controlId="formBasicCheckbox">
+                                    <Form.Check type="checkbox" label="" />
+                                </Form.Group>
 
-                    <Paper className="credits">
-                        <Typography>
-                            CREAT DE VS
-                        </Typography>
-                    </Paper>
+                                <Button variant="info" type="submit">Login</Button>
+                                <Button variant="light" className="d-inline float-right" onClick={goToSignup}>Creare Cont</Button>
+                            </Form>
 
-                </ContainerMD>
+                        </Card.Body>
+                    </Card>
+                </Container>
 
-            </div>
+            </React.StrictMode>
         );
     }
-}
+
 
 export default Login;

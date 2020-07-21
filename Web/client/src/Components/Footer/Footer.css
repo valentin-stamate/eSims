@@ -1,0 +1,12 @@
+.footer {
+    width: 100%;
+    padding: 1rem;
+}
+.footer-body {
+    text-align: center;
+    color: #8291a1;
+}
+.text-highlight {
+    color: #e4e8ed;
+    display: inline-block;
+}

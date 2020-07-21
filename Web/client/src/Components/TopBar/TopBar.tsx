@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Button, Container, DropdownButton, Form, Nav, Navbar, NavDropdown} from "react-bootstrap";
-import {GET_USER_BASIC_DATA} from "../../../Redux/actions";
+import {GET_USER_BASIC_DATA} from "../../Redux/actions";
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import {getCookie} from "../../../Globals/Cookie";
+import {getCookie, setCookie} from "../../Globals/Cookie";
 
 
 let dataFetch = false;
@@ -30,6 +30,30 @@ class TopBar extends Component<any, any> {
         } )
     }
 
+    logout = () => {
+        setCookie('user_id', "");
+        window.location.replace("/");
+    }
+
+    copyRegistration = () => {
+
+
+
+        const copyText = this.props.registration;
+        let el = document.createElement('textarea');
+        el.value = copyText;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-400px';
+
+        document.body.appendChild(el)
+
+        el.select()
+        el.setSelectionRange(0, 99999); /*For mobile devices*/
+
+        document.execCommand("copy");
+        document.body.removeChild(el);
+    }
 
     linkHighLight(path: string): string {
         return window.location.href.search(path) !== -1 ? 'text-dark' : 'text-muted';
@@ -57,13 +81,13 @@ class TopBar extends Component<any, any> {
 
                             <Form inline>
                                 <DropdownButton variant="success" title="Student" className="mr-sm-2">
-                                    <NavDropdown.Item>{this.props.username}</NavDropdown.Item>
+                                    <NavDropdown.Item>{this.props.registration}</NavDropdown.Item>
                                     <NavDropdown.Item>{this.props.email}</NavDropdown.Item>
 
                                     <NavDropdown.Divider />
-                                    <NavDropdown.Item>Copy Registration</NavDropdown.Item>
+                                    <NavDropdown.Item onClick={this.copyRegistration}>Copy Registration</NavDropdown.Item>
                                 </DropdownButton>{' '}
-                                <Button variant="warning">Logout</Button>{' '}
+                                <Button variant="warning" className="text-white" onClick={this.logout}>Logout</Button>{' '}
                             </Form>
 
                         </Navbar.Collapse>
@@ -79,7 +103,7 @@ class TopBar extends Component<any, any> {
 
 const mapStateToProps = state => {
     return {
-        username: state.userBasicData.username,
+        registration: state.userBasicData.username,
         email: state.userBasicData.email,
     }
 }

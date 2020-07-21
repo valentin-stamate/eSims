@@ -1,8 +1,8 @@
 import React from "react";
-import ContainerMD from '../Common/ContainerMD/ContainerMD';
 import Img from '../../assets/full-logo.svg'
-import { Button, TextField} from '@material-ui/core';
 import {setCookie, getCookie} from '../../Globals/Cookie'
+import {Button, Card, Container, Form} from "react-bootstrap";
+import LittleTitleBox from "../Common/LittleTitleBox/LittleTitleBox";
 
 function makeRequest() {
     let url = "http://localhost:8000/api/signup/";
@@ -63,40 +63,51 @@ function makeRequest() {
 
 export default function SignUp() {
     return (
-        <div>
+        <React.StrictMode>
 
-            <img src={Img} width={320} className="Full-Logo" />
+            <div className="background"/>
 
-            <ContainerMD containerTitle="CREARE CONT" containerSize="sm" padding="3">
+            <img alt="Logo" src={Img} width={320} className="Full-Logo"/>
 
-                <form noValidate autoComplete="off">
-                    <div className="marg-top">
-                        <TextField fullWidth label="Numar Matricol" variant="filled" id="registration" />
-                    </div>
+            <Container>
+                <Card className="signup-login-card">
+                    <LittleTitleBox title="Signup" />
+                    <Card.Body>
 
-                    <div className="marg-top">
-                        <TextField fullWidth label="Email" variant="filled" helperText="Adresa de mail v-a fi folosita pentru recuperare" id="email" />
-                    </div>
+                        <Form.Group>
+                            <Form.Control type="text" placeholder="Numarul Matricol" />
+                        </Form.Group>
 
-                    <div className="marg-top">
-                        <TextField fullWidth label="Confirma Email" variant="filled" id="email_conf" />
-                    </div>
+                        <Form.Group>
+                            <Form.Control type="email" placeholder="Email" />
+                            <Form.Text className="text-muted">
+                                V-a fi folosită pentru recuperarea parolei
+                            </Form.Text>
+                        </Form.Group>
 
-                    <div className="marg-top">
-                        <TextField fullWidth label="Parola" variant="filled" type="password" className="marg-top" id="password" />
-                    </div>
+                        <Form.Group>
+                            <Form.Control type="email" placeholder="Confirma Email" />
+                        </Form.Group>
 
-                    <div className="marg-top">
-                        <TextField fullWidth label="Confirma Parola" variant="filled" type="password" className="marg-top" id="password_conf" />
-                    </div>
+                        <Form.Group>
+                            <Form.Control type="password" placeholder="Parola" />
+                        </Form.Group>
 
-                    <Button id="button" onClick={makeRequest} variant="contained" color="primary">
-                        Creare Cont Nou
-                    </Button>
-                </form>
+                        <Form.Group>
+                            <Form.Control type="password" placeholder="Confirma Parola" />
+                        </Form.Group>
 
 
-            </ContainerMD>
-        </div>
+
+
+
+
+
+                        <Button variant="primary">Signup</Button>
+
+                    </Card.Body>
+                </Card>
+            </Container>
+        </React.StrictMode>
     );
 }
