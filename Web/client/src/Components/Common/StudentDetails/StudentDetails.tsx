@@ -1,6 +1,6 @@
 import React from "react";
 import TopBar from "../TopBar/TopBar";
-import {Button, Card, Col, Container, Row, Table} from "react-bootstrap";
+import {Button, Card, Container, Table} from "react-bootstrap";
 import { connect } from 'react-redux';
 import axios from 'axios'
 import {getCookie} from "../../../Globals/Cookie";
@@ -11,6 +11,8 @@ const mapStateToProps = (state) => {
         studentData: state.userData,
         semesters: state.userSemesters,
         semesterClasses: state.semesterClasses,
+        semestersResult: state.semestersResult,
+        yearResult: state.yearResult,
     }
 }
 
@@ -69,7 +71,9 @@ const showSemesterGrades = (event) => {
     }).then( result => {
         propsRef.dispatch({
             type: GET_SEMESTER_CLASSES,
-            data: result.data,
+            semesterClasses: result.data.classes,
+            semestersResult: result.data.semesters_result,
+            yearResult: result.data.year_result,
         })
     } )
 
@@ -164,7 +168,7 @@ function StudentDetails(props) {
 
 
                 <Card className="mt-3">
-                    <Card.Header as="h5" className="bg-danger text-light">Note '{'{Semestrul Curent}'}'</Card.Header>
+                    <Card.Header as="h5" className="bg-danger text-light">Note</Card.Header>
                     <Table size="sm" striped bordered className="m-0">
                         <thead>
                         <tr className="text-center">
@@ -195,22 +199,22 @@ function StudentDetails(props) {
                         </thead>
                         <tbody className="text-center">
                         <tr>
-                            <th>1</th>
-                            <th>{}</th>
-                            <th>{}</th>
-                            <th>{}</th>
+                            <th>{props.semestersResult[0].semester}</th>
+                            <th>{props.semestersResult[0].average_grade}</th>
+                            <th>{props.semestersResult[0].points}</th>
+                            <th>{props.semestersResult[0].credits}</th>
                         </tr>
                         <tr>
-                            <th>2</th>
-                            <th>{}</th>
-                            <th>{}</th>
-                            <th>{}</th>
+                            <th>{props.semestersResult[1].semester}</th>
+                            <th>{props.semestersResult[1].average_grade}</th>
+                            <th>{props.semestersResult[1].points}</th>
+                            <th>{props.semestersResult[1].credits}</th>
                         </tr>
-                        <tr unselectable={'on'}>
+                        <tr >
                             <th>Total</th>
-                            <th>{}</th>
-                            <th>{}</th>
-                            <th>{}</th>
+                            <th>{props.yearResult.average_grade}</th>
+                            <th>{props.yearResult.points}</th>
+                            <th>{props.yearResult.credits}</th>
                         </tr>
 
                         </tbody>

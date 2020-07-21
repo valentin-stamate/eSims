@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, UserInformation, Semester, ClassRow
+from .models import User, UserInformation, Semester, ClassRow, YearResult, SemesterResult
 
 
 class UserSignupSerializer(serializers.ModelSerializer):
@@ -52,4 +52,17 @@ class SemesterClassRowSerializer(serializers.ModelSerializer):
     model = ClassRow
     fields = ['semester_number', 'class_name', 'class_grade', 'class_credits', 'date']
 
+
+class YearResultSerializer(serializers.ModelSerializer):
+
+  class Meta:
+    model = YearResult
+    fields = ['average_grade', 'points', 'total_credits']
+
+
+class SemesterResultSerializer(serializers.ModelSerializer):
+
+  class Meta:
+    model = SemesterResult
+    fields = ['semester', 'average_grade', 'points', 'credits']
 

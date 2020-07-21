@@ -28,12 +28,31 @@ const initialState = {
     ],
     semesterClasses: [
         {
-            semester_number: 1,
+            semester_number: "1",
             class_name: "",
             class_grade: "",
             class_credits: 0,
             date: null,
         }
+    ],
+    yearResult: {
+        average_grade: 0,
+        points: 0,
+        total_credits: 0,
+    },
+    semestersResult: [
+        {
+            semester: "0",
+            average_grade: "0",
+            points: 0,
+            credits: 0,
+        },
+        {
+            semester: "0",
+            average_grade: "0",
+            points: 0,
+            credits: 0,
+        },
     ]
 };
 
@@ -57,7 +76,9 @@ function reducers(state = initialState, action) {
         case GET_SEMESTER_CLASSES:
             return {
                 ...state,
-                semesterClasses: action.data,
+                semesterClasses: action.semesterClasses,
+                semestersResult: action.semestersResult,
+                yearResult: action.yearResult,
             }
         default:
             return state

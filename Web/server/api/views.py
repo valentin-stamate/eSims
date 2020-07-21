@@ -3,8 +3,9 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 
-from .models import UserInformation, Semester, ClassRow
-from .serializers import UserSignupSerializer, UserDataSerializer, SemesterClassRowSerializer, SemesterSerializer
+from .models import UserInformation, Semester, ClassRow, YearResult, SemesterResult
+from .serializers import UserSignupSerializer, UserDataSerializer, SemesterClassRowSerializer, SemesterSerializer, \
+  SemesterResultSerializer, YearResultSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 
@@ -77,8 +78,20 @@ class SemesterClassGrades(APIView):
     semester_key = request.data['semester-key']
     semester = Semester.objects.get(id=semester_key)
 
+    year_of_study = semester.year_of_study
+    year_result_instance = YearResult.objects.get(student=request.user, year_of_study=year_of_study)
+
+    semesters_result = []
+    for semester_result in SemesterResult.objects.filter(year_result=year_result_instance):
+      semesters_result.append( SemesterResultSerializer(semester_result).data )
+
     class_rows = []
     for row in ClassRow.objects.filter(semester=semester):
       class_rows.append(SemesterClassRowSerializer(row).data)
 
-    return Response(data=class_rows)
+    data = {}
+    data['classes'] = class_rows
+    data['semesters_result'] = semesters_result
+    data['year_result'] = YearResultSerializer(year_result_instance).data
+
+    return Response(data=data)
