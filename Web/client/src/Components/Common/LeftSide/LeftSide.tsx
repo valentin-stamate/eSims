@@ -62,7 +62,7 @@ const linkList = [
     }
 ];
 
-export default function LeftSide(props) {
+export default function LeftSide() {
 
     let items: JSX.Element[] = [];
 

@@ -10,9 +10,14 @@ export function getCookie(key) {
     return keyValue ? keyValue[2] : null;
 }
 
+export function deleteCookie(key) {
+    document.cookie = key + "=" + "" + ";expires=Thu, 01 Jan 1970 00:00:01 GMT"
+}
+
 const Cookie = {
     setCookie,
     getCookie,
+    deleteCookie,
 }
 
 export default Cookie

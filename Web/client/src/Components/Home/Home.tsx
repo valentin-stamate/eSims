@@ -6,7 +6,7 @@ import CenterSide from "../Common/CenterSide/CenterSide";
 import {Col, Container, Row} from "react-bootstrap";
 import Footer from "../Footer/Footer";
 
-function Home(props) {
+function Home() {
 
     return (
         <React.StrictMode>

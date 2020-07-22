@@ -4,19 +4,28 @@ import {GET_USER_BASIC_DATA} from "../../Redux/actions";
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import {getCookie, setCookie} from "../../Globals/Cookie";
+import {deleteCookie, getCookie, setCookie} from "../../Globals/Cookie";
+import {API_GET_STUDENT_SIMPLE_DATA, BACKEND_URL, LAST_SEMESTER_COOKIE, USER_ID_COOKIE} from "../../Globals/Variables";
 
 
 let dataFetch = false;
 class TopBar extends Component<any, any> {
 
+    constructor(props) {
+        super(props);
+
+        if (getCookie(USER_ID_COOKIE) === null) {
+            window.location.replace("/");
+        }
+
+    }
+
     fetchBasicData(props) {
-        console.log("TopBar fetch")
-        const token = getCookie('user_id');
+        const token = getCookie(USER_ID_COOKIE);
 
         axios({
             method: 'GET',
-            url: 'http://localhost:8000/api/get/user-basic-data/',
+            url: BACKEND_URL + API_GET_STUDENT_SIMPLE_DATA,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': "Token " + token,
@@ -27,11 +36,15 @@ class TopBar extends Component<any, any> {
                 type: GET_USER_BASIC_DATA,
                 data: result.data,
             })
+        } ).catch( res => {
+            // TODO what if there is a server error, the user will be logged out
+            window.location.replace("/");
         } )
     }
 
     logout = () => {
-        setCookie('user_id', "");
+        deleteCookie(USER_ID_COOKIE);
+        deleteCookie(LAST_SEMESTER_COOKIE);
         window.location.replace("/");
     }
 

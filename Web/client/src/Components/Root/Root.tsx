@@ -14,7 +14,7 @@ export default function Root() {
 
     // TODO check if the user_id is actual valid
     const userId = getCookie('user_id');
-    if (userId !== "") {
+    if (userId !== null) {
         redirectToHome();
     } else {
         redirectToLogin();

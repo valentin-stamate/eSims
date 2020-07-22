@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux"
 import TopBar from "../TopBar/TopBar";
 import {Card, Col, Container, Image, ListGroup, Row} from "react-bootstrap";
 import LeftSide from "../Common/LeftSide/LeftSide";
@@ -8,14 +7,15 @@ import Banner from "../../assets/banner.jpg";
 import { useHistory } from 'react-router-dom'
 import Footer from "../Footer/Footer";
 
-function Student(props) {
+function Student() {
 
     const history = useHistory();
     const redirectToDetails = () => {
         history.push('/student/details');
     }
     const redirectToChangePassword = () => {
-        history.push('/change-password');
+        // TODO this
+        // history.push('/change-password');
     }
 
     return (

@@ -9,6 +9,7 @@ from .serializers import UserSignupSerializer, UserDataSerializer, SemesterClass
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 
+
 class SignupUser(APIView):
 
   def post(self, request):
@@ -23,10 +24,16 @@ class SignupUser(APIView):
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class LoginUser(APIView):
-
-  def post(self, request):
-    return Response("ana are mere")
+# class LoginUser(APIView):
+#
+#   def post(self, request):
+#
+#     registration = request.data['registration']
+#     password = request.data['registration']
+#
+#
+#
+#     return Response("ana are mere", status=status.HTTP_200_OK)
 
 
 class GetUserBasicData(APIView):

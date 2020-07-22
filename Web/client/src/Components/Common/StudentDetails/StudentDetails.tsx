@@ -3,9 +3,15 @@ import TopBar from "../../TopBar/TopBar";
 import {Button, Card, Container, Table} from "react-bootstrap";
 import { connect } from 'react-redux';
 import axios from 'axios'
-import {getCookie} from "../../../Globals/Cookie";
+import {getCookie, setCookie} from "../../../Globals/Cookie";
 import {GET_SEMESTER_CLASSES, GET_SEMESTERS, GET_USER_DATA} from "../../../Redux/actions";
 import Footer from "../../Footer/Footer";
+import {
+    API_GET_SEMESTER_CLASS_GRADES, API_GET_SEMESTERS_DATA, API_GET_STUDENT_DATA,
+    BACKEND_URL,
+    LAST_SEMESTER_COOKIE,
+    USER_ID_COOKIE
+} from "../../../Globals/Variables";
 
 const mapStateToProps = (state) => {
     return {
@@ -20,11 +26,11 @@ const mapStateToProps = (state) => {
 let fetchedStudentData = false;
 const fetchUserData = (props) => {
 
-    const token = getCookie('user_id');
+    const token = getCookie(USER_ID_COOKIE);
 
     axios({
         method: 'get',
-        url: 'http://localhost:8000/api/get/user-data',
+        url: BACKEND_URL + API_GET_STUDENT_DATA,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': "Token " + token,
@@ -38,7 +44,7 @@ const fetchUserData = (props) => {
 
     axios({
         method: "GET",
-        url: "http://localhost:8000/api/get/semesters",
+        url: BACKEND_URL + API_GET_SEMESTERS_DATA,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': "Token " + token,
@@ -55,13 +61,19 @@ const fetchUserData = (props) => {
 let propsRef;
 const showSemesterGrades = (event) => {
 
-    const key = event.target.getAttribute('button-key');
+    let key;
+    if (event === null) {
+        key = getCookie(LAST_SEMESTER_COOKIE);
+    } else {
+        key = event.target.getAttribute('button-key');
+        setCookie(LAST_SEMESTER_COOKIE, key);
+    }
 
     const token = getCookie('user_id');
 
     axios({
         method: "POST",
-        url: "http://localhost:8000/api/get/semester-class-grades",
+        url: BACKEND_URL + API_GET_SEMESTER_CLASS_GRADES,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': "Token " + token,
@@ -80,6 +92,7 @@ const showSemesterGrades = (event) => {
 
 }
 
+let semesterGradesFetch = false;
 
 function StudentDetails(props) {
     propsRef = props;
@@ -93,6 +106,10 @@ function StudentDetails(props) {
 
     // Semester List
     for (let i = 0; i < props.semesters.length; i++) {
+        if (i === 0) {
+            if (getCookie(LAST_SEMESTER_COOKIE) === null || getCookie(LAST_SEMESTER_COOKIE) === '0')
+                setCookie(LAST_SEMESTER_COOKIE, props.semesters[i].id);
+        }
         studentTrajectoryJSX.push(
             <tr key={i}>
                 <td>{props.semesters[i].year}</td>
@@ -103,6 +120,11 @@ function StudentDetails(props) {
                 <td><Button button-key={props.semesters[i].id} onClick={showSemesterGrades} variant="info">Detalii</Button></td>
             </tr>
         );
+    }
+
+    if (!semesterGradesFetch && getCookie(LAST_SEMESTER_COOKIE) !== '0') {
+        showSemesterGrades(null);
+        semesterGradesFetch = true;
     }
 
     // Semester Classes

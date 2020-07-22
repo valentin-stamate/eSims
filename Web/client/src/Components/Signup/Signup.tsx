@@ -1,67 +1,71 @@
-import React from "react";
+import React, {useState} from "react";
 import Img from '../../assets/full-logo.svg'
 import {setCookie, getCookie} from '../../Globals/Cookie'
-import {Button, Card, Container, Form} from "react-bootstrap";
+import {Alert, Button, Card, Container, Form} from "react-bootstrap";
 import LittleTitleBox from "../Common/LittleTitleBox/LittleTitleBox";
+import axios from 'axios'
+import {API_SIGNUP_STUDENT, BACKEND_URL, LAST_SEMESTER_COOKIE, USER_ID_COOKIE} from "../../Globals/Variables";
+import { useHistory } from 'react-router-dom';
 
-function makeRequest() {
-    let url = "http://localhost:8000/api/signup/";
-
-    let registrationDOM = document.getElementById('registration') as HTMLInputElement;
-    let emailDOM = document.getElementById('email') as HTMLInputElement;
-    let emailConfDOM = document.getElementById('email_conf') as HTMLInputElement;
-    let passwordDOM = document.getElementById('password') as HTMLInputElement;
-    let passwordConfDOM = document.getElementById('password_conf') as HTMLInputElement;
-
-    let registration = registrationDOM != null ? registrationDOM.value : ""
-    let email = emailDOM != null ? emailDOM.value : ""
-    let emailConf = emailConfDOM != null ? emailConfDOM.value : ""
-    let password = passwordDOM != null ? passwordDOM.value : ""
-    let passwordConf = passwordConfDOM != null ? passwordConfDOM.value : ""
-
-    if (registration.length < 10 || email.length < 10 || password.length < 7) {
-        alert("Registration >= 10; Email >= 10; password >= 8");
-        return;
+const validCredentials = (registration, email, password) => {
+//    TODO a more complex check
+    if (registration === null || email === null || password === null) {
+        return false;
     }
 
-    if (email !== emailConf) {
-        alert("Password should match");
-        return;
+    if (registration.length < 6 || email.length < 10 || password < 8) {
+        return false;
     }
 
-    if (password !== passwordConf) {
-        alert("Password should match");
-        return;
-    }
-
-    let data = {
-        'username': registration,
-        'email': email,
-        'password': password
-    };
-
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }).then(response => {
-
-        if (response.status === 201)
-            return response.json();
-        throw "Error";
-
-    }).then(data => {
-        setCookie('user_id', data.token);
-        window.location.href = './home';
-    }).catch(e => {
-        alert(e);
-    //    A material component maybe
-    });
+    return true;
 }
 
 export default function SignUp() {
+
+    const useHist = useHistory();
+
+    const [errorSignup, setErrorSignup] = useState(false);
+
+    const signupStudent = (event) => {
+        event.preventDefault();
+
+        const formData = Object.fromEntries(new FormData(event.target));
+
+        if (!validCredentials(formData.registration, formData.email, formData.password)) {
+            setErrorSignup(true);
+            return;
+        }
+
+        if (!(formData.email === formData.re_email && formData.password === formData.re_password)) {
+            setErrorSignup(true);
+            return;
+        }
+
+        axios({
+            url: BACKEND_URL + API_SIGNUP_STUDENT,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: {
+                username: formData.registration,
+                email: formData.email,
+                password: formData.password,
+            }
+        }).then( res => {
+            if (res.status === 204) {
+                setErrorSignup(true);
+            } else if (res.status === 201) {
+                setCookie(USER_ID_COOKIE, res.data.token);
+                setCookie(LAST_SEMESTER_COOKIE, "0");
+                useHist.push("/home");
+            }
+        }).catch( e => {
+            setErrorSignup(true);
+        } )
+
+    }
+
     return (
         <React.StrictMode>
 
@@ -74,36 +78,41 @@ export default function SignUp() {
                     <LittleTitleBox title="Signup" />
                     <Card.Body>
 
-                        <Form.Group>
-                            <Form.Control type="text" placeholder="Numarul Matricol" />
-                        </Form.Group>
+                        <Form onSubmit={signupStudent}>
+                            <Form.Group>
+                                <Form.Control type="text" placeholder="Numarul Matricol" name="registration"/>
+                            </Form.Group>
 
-                        <Form.Group>
-                            <Form.Control type="email" placeholder="Email" />
-                            <Form.Text className="text-muted">
-                                V-a fi folosită pentru recuperarea parolei
-                            </Form.Text>
-                        </Form.Group>
+                            <Form.Group>
+                                <Form.Control type="email" placeholder="Email" name="email"/>
+                                <Form.Text className="text-muted">
+                                    V-a fi folosită pentru recuperarea parolei
+                                </Form.Text>
+                            </Form.Group>
 
-                        <Form.Group>
-                            <Form.Control type="email" placeholder="Confirma Email" />
-                        </Form.Group>
+                            <Form.Group>
+                                <Form.Control type="email" placeholder="Confirma Email" name="re_email" />
+                            </Form.Group>
 
-                        <Form.Group>
-                            <Form.Control type="password" placeholder="Parola" />
-                        </Form.Group>
+                            <Form.Group>
+                                <Form.Control type="password" placeholder="Parola" name="password"/>
+                            </Form.Group>
 
-                        <Form.Group>
-                            <Form.Control type="password" placeholder="Confirma Parola" />
-                        </Form.Group>
+                            <Form.Group>
+                                <Form.Control type="password" placeholder="Confirma Parola" name="re_password" />
+                            </Form.Group>
 
+                            {
+                                errorSignup ?
+                                    <Alert variant="danger">
+                                        Error.
+                                    </Alert>
+                                    :
+                                    ""
+                            }
 
-
-
-
-
-
-                        <Button variant="primary">Signup</Button>
+                            <Button variant="primary" type="submit" >Signup</Button>
+                        </Form>
 
                     </Card.Body>
                 </Card>

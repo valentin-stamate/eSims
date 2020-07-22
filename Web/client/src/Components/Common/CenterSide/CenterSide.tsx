@@ -73,7 +73,6 @@ export default function CenterSide() {
         }
     }
 
-    // @ts-ignore
     return (
         <React.StrictMode>
 
@@ -86,19 +85,6 @@ export default function CenterSide() {
                     </Card>
                 </Row>
             </Col>
-
-            {/*<Container padding={0} style={{padding:"0", marginTop:"1rem"}}>*/}
-            {/*    <img src={Banner} style={{width:"100%"}}/>*/}
-            {/*</Container>*/}
-
-            {/*<ContainerMD padding="2">*/}
-            {/*    {content}*/}
-            {/*</ContainerMD>*/}
-
-            {/*<ContainerMD>*/}
-            {/*    <img src={Evolve} style={{width:"90%"}} className="center-img"/>*/}
-            {/*    <img src={UAIC360} style={{width:"90%", marginTop:"1rem"}} className="center-img"/>*/}
-            {/*</ContainerMD>*/}
 
         </React.StrictMode>
     );

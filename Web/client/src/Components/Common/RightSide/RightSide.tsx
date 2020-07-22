@@ -1,6 +1,6 @@
 import React from 'react'
 import LogoText from '../../../assets/full-logo.svg'
-import {Container, Row, Image, Col} from "react-bootstrap";
+import {Row, Image, Col} from "react-bootstrap";
 
 export default function RightSide() {
     return (
